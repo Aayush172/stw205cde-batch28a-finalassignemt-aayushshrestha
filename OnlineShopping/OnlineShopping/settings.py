@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'admins.apps.AdminsConfig',
     'accounts.apps.AccountsConfig',
-    'products.app.ProductsConfig',
+    'products.apps.ProductsConfig',
     'bootstrapform',
 
 
