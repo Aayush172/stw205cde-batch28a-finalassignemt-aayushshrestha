@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+<title>Users Products</title>
+{% endblock title %}
+{% block main_content %}
+<h1>All Products</h1>
+<div class="container">
+    <div class="row justify-content-around">
+        {% for i in products %}
+        <div class="card col-md-3 m-3" >
+            <img src="/{{i.product_image}}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{i.product_name}}</h5>
+                <p class="card-text">Rs. {{i.product_price}}</p>
+                <p class="card-text">{{i.category.category_name}}</p>
+                <a href="#" class="btn btn-primary">Add to cart</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock main_content  %}

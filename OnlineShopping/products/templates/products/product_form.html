@@ -1,7 +1,7 @@
 {% extends 'layout-admin.html' %}
 {% load bootstrap %}
 {% block title %}
-    <title>Add Category </title>
+    <title>Add Product </title>
 {% endblock%}
 {% block main_content %}
 <style>
@@ -18,12 +18,12 @@
 <div class="container">
 <div class="row">
     <div class="col-md-6 offset-md-3">
-        <h1 class="text-center">Add New Category</h1>
+        <h1 class="text-center">Add New Product</h1>
            {% include 'messages.html' %}
         <div class="card py-2 px-2">
-            <form class="form myForm" action="" method="POST">
+            <form class="form myForm" action="" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form_category | bootstrap_horizontal}}
+                {{ form_product | bootstrap_horizontal}}
 
                 <button type="submit" class="btn btn-primary mt-3">Submit</button>
             </form>
@@ -34,8 +34,8 @@
 
 <script>
     var form_fields = document.getElementsByTagName('input')
-    form_fields[1].placeholder = "Enter Category Name"
-    form_fields[2].placeholder = "Enter Category Description"
+    form_fields[1].placeholder = "Enter Product Name"
+    form_fields[2].placeholder = "Enter Product price"
 
 
     for(field in form_fields){

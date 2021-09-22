@@ -1,7 +1,7 @@
 {% extends 'layout-admin.html' %}
 {% load bootstrap %}
 {% block title %}
-    <title>Add Category </title>
+    <title>Updated Category </title>
 {% endblock%}
 {% block main_content %}
 <style>
@@ -18,8 +18,8 @@
 <div class="container">
 <div class="row">
     <div class="col-md-6 offset-md-3">
-        <h1 class="text-center">Add New Category</h1>
-           {% include 'messages.html' %}
+        <h1 class="text-center">Updated Category</h1>
+
         <div class="card py-2 px-2">
             <form class="form myForm" action="" method="POST">
                 {% csrf_token %}
