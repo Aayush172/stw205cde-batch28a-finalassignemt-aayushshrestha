@@ -4,9 +4,11 @@
 <title>Products Categories</title>
 {% endblock title %}
 {% block main_content %}
-<h1>All Products</h1>
+<h1>All Categories</h1>
+
 <div class="container">
     <div class="row justify-content-around">
+        {% include 'messages.html' %}
         {% for i in categories %}
         <div class="card col-md-3" >
             <div class="card-body">

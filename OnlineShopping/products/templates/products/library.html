@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+<title>Products Library</title>
+{% endblock title %}
+{% block main_content %}
+<h1>All Categories With Products</h1>
+{% include 'messages.html' %}
+<div class="container">
+    <div class="row justify-content-around">
+        {% for i in categories %}
+        <h1>{{ i.category_name}}</h1>
+          <div class="product_image">
+       <img src="/{{i.category_image}}" width="200"/>
+
+        {% for j in i.product_set.all %}
+        <div class="library-items d-flex justify-content-between">
+            <div class="product_name">
+                <p>{{j.product_name}}</p>
+            </div>
+            <div class="product_price">
+        Rs.{{j.product_price }}
+            </div>
+
+        </div>
+        {% endfor %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock main_content  %}
