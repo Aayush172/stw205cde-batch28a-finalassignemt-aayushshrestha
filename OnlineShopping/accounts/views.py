@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib import messages
 from .forms import LoginForm
 from accounts.auth import unauthenticated_user, admin_only, user_only
@@ -30,7 +30,7 @@ def login_user(request):
                     return redirect('/admins/dashboard')
                 elif not user.is_staff:
                     login(request, user)
-                    return redirect('/products/homepage')
+                    return redirect('/')
             else:
                 messages.add_message(request, messages.ERROR, 'Invalid username or password')
                 return render(request, 'accounts/login.html', {'form_login': form})
@@ -62,3 +62,25 @@ def register_user(request):
 
     }
     return render(request, 'accounts/register.html', context)
+
+
+
+@login_required
+@admin_only
+def change_password(request):
+    if request.method == "POST":
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.add_message(request,messages.SUCCESS, 'Password Change Successfully')
+            return redirect('/admins/dashboard')
+        else:
+            messages.add_message(request, messages.ERROR, 'Please verify the form field')
+            return render(request, 'accounts/password_change.html',{'password_change_form':form})
+
+    context = {
+        'password_change_form': PasswordChangeForm(request.user)
+    }
+    return render(request, 'accounts/password_change.html', context)
+

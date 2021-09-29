@@ -6,8 +6,16 @@ from accounts.auth import admin_only, user_only
 from django.contrib.auth.decorators import login_required
 import os
 
+
 def homepage(request):
     return render(request, 'products/homepage.html')
+
+
+def about(request):
+    context = {
+        'activate_about': 'active'
+    }
+    return render(request, 'products/about.html', context)
 
 @login_required
 @admin_only

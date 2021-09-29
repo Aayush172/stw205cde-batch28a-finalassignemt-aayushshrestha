@@ -1,40 +1,66 @@
+{% load static %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">ABC Shop</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link {{activate_category_user}} " aria-current="page" href="/products/get_category_user">Category</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {{activate_product_user}}" href="/products/get_product_user">Product</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {{activate_library}}" href="/products/library">Library</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {{activate_my_cart}}" href="/products/mycart">My Cart</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {{activate_myorder}}" href="/products/my_order">My Order</a>
-        </li>
-          {% if user.is_authenticated %}
-        <li class="nav-item">
-          <a class="nav-link" href="/logout">Logout</a>
-        </li>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/"><img src="{% static 'images/ABC_Shops.png' %}" alt="..."></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0  ">
+                <li class="nav-item">
+                    <a class="nav-link {{activate_about}}" href="/products/about_us">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{activate_category_user}} " aria-current="page"
+                       href="/products/get_category_user">Category</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{activate_product_user}}" href="/products/get_product_user">Product</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{activate_library}}" href="/products/library">Library</a>
+                </li>
 
-        {% else %}
-          <li class="nav-item">
-          <a class="nav-link {{activate_login}}" href="/login">Login</a>
-        </li>
-          <li class="nav-item">
-          <a class="nav-link {{activate_register}}" href="/register">Register</a>
-        </li>
-        {% endif %}
-      </ul>
+                 <li class="nav-item">
+                    {% if user.is_authenticated %}
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle"></i>
+                        </button>
+                        <ul class="dropdown-menu me-5 "aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                            <li><a class="dropdown-item" href="/logout">Change Password</a></li>
+
+
+                        </ul>
+                    </div>
+
+                    {% else %}
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle"></i>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="/login">login</a></li>
+                            <li><a class="dropdown-item" href="/register">Register</a></li>
+                        </ul>
+                    </div>
+
+                    {% endif %}
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{activate_my_cart}}" href="/products/mycart"><i
+                            class="fas fa-shopping-cart"></i> My Cart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{activate_myorder}}" href="/products/my_order"><i
+                            class="fas fa-shopping-bag"></i> My Order</a>
+                </li>
+
+            </ul>
+        </div>
     </div>
-  </div>
 </nav>
