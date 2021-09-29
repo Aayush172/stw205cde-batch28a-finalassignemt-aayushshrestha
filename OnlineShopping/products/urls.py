@@ -22,4 +22,5 @@ urlpatterns = [
     path('remove_cart_item/<int:cart_id>', views.remove_cart_item),
     path('order_form/<int:product_id>/<int:cart_id>', views.order_form),
     path('my_order', views.my_order),
+    path('esewa_verify', views.esewa_verify),
 ]

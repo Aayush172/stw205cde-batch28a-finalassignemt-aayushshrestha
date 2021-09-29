@@ -1,75 +1,151 @@
-<section class="w3l-footer-16">
-        <div class="w3l-footer-16-main">
-            <div class="container-fluid p-5 bg-dark text-white mt-5">
-                <div class="row footer-p">
-                    <div class="col-lg-4 pr-lg-5">
-                        <a class="logo" href="/"><i class="fas fa-shipping-fast"></i> ABC Shop</a>
-                        <p class="mt-4">The Best Online Shopping Platform in Nepal. Get Free Delivery and Best Deals & Offers in Kathmandu. Nepal's Biggest online store </p>
-                    </div>
-                    <div class="col-lg-4 mt-lg-0 mt-4">
-                        <h3>Pages</h3>
-                        <div class="row">
-                            <div class="col-6 column">
-                                <ul class="footer-gd-16">
-                                    <li><a href="/"><i class="fa fa-angle-right"
-                                                aria-hidden="true"></i>Home</a></li>
-                                    <li><a href="about.html"><i class="fa fa-angle-right" aria-hidden="true"></i>About
-                                            Us</a></li>
-                                    <li><a href="services.html"><i class="fa fa-angle-right"
-                                                aria-hidden="true"></i>Services</a></li>
-                                    <li><a href="#blog"><i class="fa fa-angle-right" aria-hidden="true"></i>Blog
-                                            Posts</a></li>
-                                    <li><a href="contact.html"><i class="fa fa-angle-right"
-                                                aria-hidden="true"></i>Contact Us</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-6 column pl-0">
-                                <ul class="footer-gd-16">
-                                    <li><a href="#support"><i class="fa fa-angle-right"
-                                                aria-hidden="true"></i>Support</a></li>
-                                    <li><a href="#privacy"><i class="fa fa-angle-right" aria-hidden="true"></i>Privacy
-                                            Policy</a></li>
-                                    <li><a href="#terms"><i class="fa fa-angle-right" aria-hidden="true"></i>Terms and
-                                            conditions</a></li>
-                                    <li><a href="#faq"><i class="fa fa-angle-right" aria-hidden="true"></i>FAQ</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-7 column mt-lg-0 mt-4">
-                        <h3>Newsletter </h3>
-                        <div class="end-column">
-                            <h3>Subscribe Here Now</h3>
-                            <form action="#" class="subscribe" method="post">
-                                <input type="email" name="email" placeholder="Email Address" required="">
-                                <button><span class="fa fa-paper-plane" aria-hidden="true"></span></button>
-                            </form>
-                            <p>Subscribe to our mailing list and get updates to your email inbox.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex below-section justify-content-between align-items-center pt-4 mt-5">
-                    <div class="columns text-lg-left">
-                        <p class="copy-text">@ 2020 Dogs Care. All rights reserved. Design by <a
-                                href="https://w3layouts.com/" target="_blank">
-                                W3Layouts</a>
-                        </p>
-                    </div>
-                    <div class="columns-2 mt-md-0 mt-3">
-                        <ul class="social">
-                            <li><a href="#facebook"><span class="fa fa-facebook" aria-hidden="true"></span></a>
-                            </li>
-                            <li><a href="#linkedin"><span class="fa fa-linkedin" aria-hidden="true"></span></a>
-                            </li>
-                            <li><a href="#twitter"><span class="fa fa-twitter" aria-hidden="true"></span></a>
-                            </li>
-                            <li><a href="#google"><span class="fa fa-google-plus" aria-hidden="true"></span></a>
-                            </li>
-                            <li><a href="#github"><span class="fa fa-github" aria-hidden="true"></span></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+{% load static %}
+<style>
+*, *:before, *:after {
+box-sizing: border-box;
+}
+
+body {
+font-family: poppins;
+margin: 0;
+display: grid;
+font-size: 14px;
+}
+header p {
+padding: 50px;
+text-align: center;
+color: #bebebe;
+text-transform: uppercase;
+font-size: 65px;
+font-weight: 700;
+}
+.footer {
+display: flex;
+flex-flow: row wrap;
+padding: 50px;
+color: #fff;
+background-color: black;
+}
+
+.footer > * {
+flex:  1 100%;
+}
+
+.l-footer {
+margin-right: 1.25em;
+margin-bottom: 2em;
+}
+
+h2 {
+font-weight: 400;
+font-size: 15px;
+}
+
+.footer ul {
+list-style: none;
+padding-left: 0;
+}
+
+.footer li {
+line-height: 2em;
+}
+
+.footer a {
+text-decoration: none;
+}
+
+.r-footer {
+display: flex;
+flex-flow: row wrap;
+}
+
+.r-footer > * {
+flex: 1 50%;
+margin-right: 1.25em;
+}
+
+.box a {
+color: #999;
+}
+
+.h-box {
+column-count: 2;
+column-gap: 1.25em;
+}
+
+.b-footer {
+text-align: center;
+color: #999;
+padding-top: 50px;
+}
+
+.l-footer p {
+padding-right: 20%;
+color: #999;
+}
+
+@media screen and (min-width: 600px) {
+.r-footer > * {
+flex: 1;
+}
+
+.features {
+flex-grow: 2;
+}
+
+.l-footer {
+flex: 1 0px;
+}
+
+.r-footer {
+flex: 2 0px;
+}
+}
+</style>
+
+
+<footer class="footer">
+    <div class="l-footer">
+        <h5>
+            <img src="{% static 'images/ABC_Shops.png' %}" alt="">   ABC Shop</h5>
+        <p>
+            The Best Online Shopping Platform in Nepal. Get Free Delivery and Best Deals & Offers in Kathmandu.
+            Nepal's Biggest online store. Promotions on clothing, electronics, sports and more. Check out all the deals!  </p>
+    </div>
+    <ul class="r-footer">
+        <li>
+            <h2>
+                Social</h2>
+            <ul class="box">
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Shagun</a></li>
+                <li><a href="#">Instagram</a></li>
+            </ul>
+        </li>
+        <li class="features">
+            <h2>
+                Information</h2>
+            <ul class="box h-box">
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Pricing</a></li>
+                <li><a href="#">Sales</a></li>
+                <li><a href="#">Tickets</a></li>
+                <li><a href="#">Certifications</a></li>
+                <li><a href="#">Customer Service</a></li>
+            </ul>
+        </li>
+        <li>
+            <h2>
+                Legal</h2>
+            <ul class="box">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Use</a></li>
+                <li><a href="#">Contract</a></li>
+            </ul>
+        </li>
+    </ul>
+    <div class="b-footer">
+        <p>
+            All rights reserved by ©ABC Shop 2018 </p>
+    </div>
+</footer>

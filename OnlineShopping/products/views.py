@@ -12,10 +12,11 @@ def homepage(request):
 
 
 def about(request):
-    context = {
-        'activate_about': 'active'
-    }
-    return render(request, 'products/about.html', context)
+    # context = {
+    #     'activate_about': 'active'
+    # }
+    return render(request, 'products/about.html')
+
 
 @login_required
 @admin_only
@@ -24,7 +25,7 @@ def category_form(request):
         form = CategoryForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            messages.add_message(request,messages.SUCCESS, "Category Added Successfully")
+            messages.add_message(request, messages.SUCCESS, "Category Added Successfully")
             return redirect("/products/get_category")
         else:
             messages.add_message(request, messages.ERROR, 'Unable to add')
@@ -36,6 +37,7 @@ def category_form(request):
     }
     return render(request, 'products/category_form.html', context)
 
+
 @login_required
 @admin_only
 def get_category(request):
@@ -46,6 +48,7 @@ def get_category(request):
     }
     return render(request, 'products/get_category.html', context)
 
+
 @login_required
 @admin_only
 def delete_category(request, category_id):
@@ -53,6 +56,7 @@ def delete_category(request, category_id):
     category.delete()
     messages.add_message(request, messages.SUCCESS, 'Category Deleted Successfully')
     return redirect('/products/get_category')
+
 
 @login_required
 @admin_only
@@ -62,7 +66,7 @@ def category_update_form(request, category_id):
         form = CategoryForm(request.POST, instance=category)
         if form.is_valid():
             form.save()
-            messages.add_message(request,messages.SUCCESS, 'Category Updated Successfully')
+            messages.add_message(request, messages.SUCCESS, 'Category Updated Successfully')
             return redirect("/products/get_category")
         else:
             messages.add_message(request, messages.ERROR, 'Unable to updated')
@@ -74,6 +78,7 @@ def category_update_form(request, category_id):
     }
     return render(request, 'products/category_update_form.html', context)
 
+
 @login_required
 @admin_only
 def product_form(request):
@@ -81,7 +86,7 @@ def product_form(request):
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            messages.add_message(request,messages.SUCCESS, "Product Added Successfully")
+            messages.add_message(request, messages.SUCCESS, "Product Added Successfully")
             return redirect("/products/get_product")
         else:
             messages.add_message(request, messages.ERROR, 'Unable to add')
@@ -93,6 +98,7 @@ def product_form(request):
     }
     return render(request, 'products/product_form.html', context)
 
+
 @login_required
 @admin_only
 def get_product(request):
@@ -102,6 +108,7 @@ def get_product(request):
         'activate_product': 'active'
     }
     return render(request, 'products/get_product.html', context)
+
 
 @login_required
 @admin_only
@@ -121,7 +128,7 @@ def product_update_form(request, product_id):
         form = ProductForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
             form.save()
-            messages.add_message(request,messages.SUCCESS, 'Product Updated Successfully')
+            messages.add_message(request, messages.SUCCESS, 'Product Updated Successfully')
             return redirect("/products/get_product")
         else:
             messages.add_message(request, messages.ERROR, 'Unable to updated')
@@ -160,6 +167,7 @@ def library(request):
     }
     return render(request, 'products/library.html', context)
 
+
 @login_required
 @user_only
 def add_to_cart(request, product_id):
@@ -177,6 +185,7 @@ def add_to_cart(request, product_id):
             return redirect('/products/mycart')
         else:
             messages.add_message(request, messages.ERROR, 'Unable to add item to cart')
+
 
 @login_required
 @user_only
@@ -198,6 +207,7 @@ def remove_cart_item(request, cart_id):
     messages.add_message(request, messages.SUCCESS, 'Cart item removed successfully')
     return redirect('/products/mycart')
 
+
 @login_required
 @user_only
 def order_form(request, product_id, cart_id):
@@ -209,36 +219,68 @@ def order_form(request, product_id, cart_id):
         if form.is_valid():
             quantity = request.POST.get('quantity')
             price = product.product_price
-            total_price = int(quantity)*int(price)
+            total_price = int(quantity) * int(price)
             contact_no = request.POST.get('contact_no')
             contact_address = request.POST.get('contact_address')
             payment_method = request.POST.get('payment_method')
             order = Order.objects.create(product=product,
-                                         user =user,
+                                         user=user,
                                          quantity=quantity,
                                          total_price=total_price,
-                                         contact_no = contact_no,
-                                         contact_address =contact_address,
+                                         contact_no=contact_no,
+                                         contact_address=contact_address,
                                          status="Pending",
-                                         payment_method= payment_method,
+                                         payment_method=payment_method,
                                          payment_status=False
-            )
+                                         )
             if order:
-                messages.add_message(request, messages.SUCCESS, 'Item Ordered. Continue Payment for Verification')
-                cart_item.delete()
-                return redirect('/products/my_order')
-                # context = {
-                #     'order': order,
-                #     'cart': cart_item
-                # }
-                # return render(request, 'products/esewa_payment.html', context)
+                # messages.add_message(request, messages.SUCCESS, 'Item Ordered. Continue Payment for Verification')
+                # cart_item.delete()
+                context = {
+                    'order': order,
+                    'cart': cart_item
+                }
+                return render(request, 'foods/esewa_payment.html', context)
         else:
             messages.add_message(request, messages.ERROR, 'Something went wrong')
-            return render(request, 'products/order_form.html', {'order_form':form})
+            return render(request, 'products/order_form.html', {'order_form': form})
     context = {
         'order_form': OrderForm
     }
     return render(request, 'products/order_form.html', context)
+
+
+# import requests as req
+
+
+def esewa_verify(request):
+    import xml.etree.ElementTree as ET
+    o_id = request.GET.get('oid')
+    amount = request.GET.get('amt')
+    refId = request.GET.get('refId')
+    url = "https://uat.esewa.com.np/epay/transrec"
+    d = {
+        'amt': amount,
+        'scd': 'EPAYTEST',
+        'rid': refId,
+        'pid': o_id,
+    }
+    resp = req.post(url, d)
+    root = ET.fromstring(resp.content)
+    status = root[0].text.strip()
+    if status == 'Success':
+        order_id = o_id.split("_")[0]
+        order = Order.objects.get(id=order_id)
+        order.payment_status = True
+        order.save()
+        cart_id = o_id.split("_")[1]
+        cart = Cart.objects.get(id=cart_id)
+        cart.delete()
+        messages.add_message(request, messages.SUCCESS, 'Payment Successful')
+        return redirect('/foods/mycart')
+    else:
+        messages.add_message(request, messages.ERROR, 'Unable to make payment')
+        return redirect('/foods/mycart')
 
 
 @login_required
@@ -247,7 +289,7 @@ def my_order(request):
     user = request.user
     items = Order.objects.filter(user=user).order_by('-id')
     context = {
-        'items':items,
-        'activate_myorders':'active'
+        'items': items,
+        'activate_myorders': 'active'
     }
     return render(request, 'products/my_order.html', context)
