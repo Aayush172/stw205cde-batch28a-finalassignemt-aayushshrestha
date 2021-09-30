@@ -22,6 +22,7 @@
                     <a class="nav-link {{activate_library}}" href="/products/library">Library</a>
                 </li>
 
+
                  <li class="nav-item">
                     {% if user.is_authenticated %}
                     <div class="dropdown">
@@ -30,7 +31,10 @@
                             <i class="fas fa-user-circle"></i>
                         </button>
                         <ul class="dropdown-menu me-5 "aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="/profile">{{request.user.username}}</a></li>
                             <li><a class="dropdown-item" href="/logout">Logout</a></li>
+
+
 
 
 

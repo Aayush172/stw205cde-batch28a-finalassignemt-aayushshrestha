@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib import messages
-from .forms import LoginForm
+from .forms import LoginForm, ProfileForm
 from accounts.auth import unauthenticated_user, admin_only, user_only
 from django.contrib.auth.decorators import login_required
 
@@ -84,3 +84,19 @@ def change_password(request):
     }
     return render(request, 'accounts/password_change.html', context)
 
+
+@login_required
+@user_only
+def profile(request):
+    profile = request.user.profile
+    if request.method == "POST":
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, "Profile update successfully")
+            return redirect('/profile')
+    context = {
+        'form': ProfileForm(instance=profile),
+        'activate_profile': 'active'
+    }
+    return render(request, 'accounts/profile.html', context)

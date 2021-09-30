@@ -12,10 +12,10 @@ def homepage(request):
 
 
 def about(request):
-    # context = {
-    #     'activate_about': 'active'
-    # }
-    return render(request, 'products/about.html')
+    context = {
+        'activate_about': 'active'
+    }
+    return render(request, 'products/about.html',context)
 
 
 @login_required
@@ -240,7 +240,7 @@ def order_form(request, product_id, cart_id):
                     'order': order,
                     'cart': cart_item
                 }
-                return render(request, 'foods/esewa_payment.html', context)
+                return render(request, 'products/esewa_payment.html', context)
         else:
             messages.add_message(request, messages.ERROR, 'Something went wrong')
             return render(request, 'products/order_form.html', {'order_form': form})
@@ -250,9 +250,8 @@ def order_form(request, product_id, cart_id):
     return render(request, 'products/order_form.html', context)
 
 
-# import requests as req
 
-
+import requests as req
 def esewa_verify(request):
     import xml.etree.ElementTree as ET
     o_id = request.GET.get('oid')
@@ -277,10 +276,10 @@ def esewa_verify(request):
         cart = Cart.objects.get(id=cart_id)
         cart.delete()
         messages.add_message(request, messages.SUCCESS, 'Payment Successful')
-        return redirect('/foods/mycart')
+        return redirect('/products/mycart')
     else:
         messages.add_message(request, messages.ERROR, 'Unable to make payment')
-        return redirect('/foods/mycart')
+        return redirect('/products/mycart')
 
 
 @login_required
@@ -293,3 +292,31 @@ def my_order(request):
         'activate_myorders': 'active'
     }
     return render(request, 'products/my_order.html', context)
+
+
+@login_required
+@admin_only
+def get_order(request):
+    order = Order.objects.all().order_by('-id')
+    context = {
+        'order': order,
+        'activate_order': 'active',
+    }
+    return render(request, 'products/get_order.html', context)
+
+@login_required
+@admin_only
+def deleteOrder(request, order_id):
+    order = Order.objects.get(id=order_id)
+    order.delete()
+    messages.add_message(request, messages.SUCCESS, 'Order has been deleted Successfully')
+    return redirect('/products/get_order')
+
+@login_required
+@admin_only
+def updateOrder(request, order_id):
+    order = Order.objects.get(id=order_id)
+    order.status = 'Delivered'
+    order.save()
+    messages.add_message(request, messages.SUCCESS, 'Order Has Been Delivered Successfully')
+    return redirect('/products/get_order')

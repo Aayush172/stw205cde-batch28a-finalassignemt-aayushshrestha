@@ -1,7 +1,7 @@
 {% extends 'layout-admin.html' %}
 {% load bootstrap %}
 {% block title %}
-<title>Add Food</title>
+<title>Esewa</title>
 {% endblock%}
 
 {% block main_content %}
@@ -20,7 +20,7 @@
                     <input value="0" name="pdc" type="hidden" readonly>
                     <input value="EPAYTEST" name="scd" type="hidden">
                     <input value="{{order.id}}_{{cart.id}}" name="pid" type="hidden">
-                    <input value="http://127.0.0.1:8000/foods/esewa_verify" type="hidden" name="su">
+                    <input value="http://127.0.0.1:8000/products/esewa_verify" type="hidden" name="su">
                     <input value="{{request.build_absolute_uri}}" type="hidden" name="fu">
                     <input value="Submit" type="submit">
                 </form>
