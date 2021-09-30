@@ -2,11 +2,11 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('homepage', views.homepage),
-    path('about_us', views.about),
-    path('category_form', views.category_form),
+    path('homepage', views.homepage, name='homepage'),
+    path('about_us', views.about, name='about'),
+    path('category_form', views.category_form, name='category_form'),
     path('get_category', views.get_category),
-    path('delete_category/<int:category_id>', views.delete_category),
+    path('delete_category/<int:category_id>', views.delete_category, name='delete_category'),
     path('update_category/<int:category_id>', views.category_update_form),
 
     path('product_form',views.product_form),
@@ -16,7 +16,7 @@ urlpatterns = [
 
     path('get_category_user', views.show_categories),
     path('get_product_user', views.show_products),
-    path('library', views.library),
+    path('library', views.library, name='library'),
     path('add_to_cart/<int:product_id>', views.add_to_cart),
     path('mycart', views.show_cart_items),
     path('remove_cart_item/<int:cart_id>', views.remove_cart_item),
