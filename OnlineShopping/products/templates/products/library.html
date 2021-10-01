@@ -4,7 +4,7 @@
 <title>Products Library</title>
 {% endblock title %}
 {% block main_content %}
-<h1>All Categories With Products</h1>
+<h1 class="text-center">All Categories With Products</h1>
 {% include 'messages.html' %}
 <div class="container">
     <div class="row justify-content-around">
@@ -12,7 +12,7 @@
         <h1>{{ i.category_name}}</h1>
           <div class="product_image">
        <img src="/{{i.category_image}}" width="200"/>
-
+          </div>
         {% for j in i.product_set.all %}
         <div class="library-items d-flex justify-content-between">
             <div class="product_name">

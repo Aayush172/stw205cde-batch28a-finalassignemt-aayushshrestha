@@ -10,3 +10,4 @@ urlpatterns = [
     path('demote/<int:user_id>', views.demote_admin),
 
 ]
+

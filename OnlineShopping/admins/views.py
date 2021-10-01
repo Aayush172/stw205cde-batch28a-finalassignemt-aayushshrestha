@@ -4,10 +4,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from products.models import *
 from django.contrib import messages
-
-
-
-
 @login_required
 @admin_only
 def dashboard(request):
@@ -15,6 +11,8 @@ def dashboard(request):
     category_count = category.count()
     product = Product.objects.all()
     product_count = product.count()
+    order = Order.objects.all()
+    order_count = order.count()
 
     user = User.objects.filter(is_staff=0)
     user_count = user.count()
@@ -24,6 +22,7 @@ def dashboard(request):
     context = {
         'category': category_count,
         'product': product_count,
+        'order': order_count,
 
         'user': user_count,
         'admin': admin_count

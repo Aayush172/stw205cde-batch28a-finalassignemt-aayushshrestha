@@ -14,6 +14,7 @@
                 <table class="table-striped">
                     <tr>
                         <th>Product Name</th>
+                        <th>Image</th>
                         <th>Product Price</th>
                         <th>Date Added</th>
 
@@ -22,13 +23,14 @@
                     {% for i in items %}
                     <tr>
                         <td> {{ i.product.product_name }}</td>
+                        <td><img src="/{{i.product.product_image}}" width="100"> </td>
                         <td> {{ i.product.product_price }}</td>
                         <td> {{ i.created_date }}</td>
 
                         <td><a class="btn btn-primary btn-sm" href="/products/remove_cart_item/{{i.id}}">Remove</a> &nbsp;
                             <a class="btn btn-danger btn-sm"
                                href="/products/order_form/{{i.product.id}}/{{i.id}}"
-                               onclick="return confirm('Are you sure want to order this food?')" >Order</a></td>
+                               onclick="return confirm('Are you sure want to order this product?')" >Order</a></td>
                     </tr>
                     {% endfor %}
                 </table>

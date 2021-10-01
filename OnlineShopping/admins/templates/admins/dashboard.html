@@ -14,7 +14,7 @@
     }
 </style>
 <div class="container">
-    <h1>Admin Dashboard</h1>
+    <h1 class="text-center">Admin Dashboard</h1>
     {% include 'messages.html' %}
     <div class="row">
         <div class="col">
@@ -35,18 +35,18 @@
                 </div>
             </div>
         </div>
+                <div class="col">
+            <div class="card text-white bg-info mb-3" style="max-width: 35rem;">
+                <div class="card-header text-center">Order</div>
+                <div class="card-body">
+                    <a href="/products/get_order"><h1 class="card-title text-center">{{order}}</h1>
+                    </a>
+                </div>
+            </div>
+        </div>
 
     </div>
     <div class="row">
-<!--        <div class="col">-->
-<!--            <div class="card text-white bg-warning mb-3" style="max-width: 35rem;">-->
-<!--                <div class="card-header text-center">Total Files</div>-->
-<!--                <div class="card-body">-->
-<!--                    <a href="/admins/users"><h1 class="card-title text-center">{{file}}</h1>-->
-<!--                    </a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
             <div class="col">
             <div class="card text-white bg-danger mb-3" style="max-width: 35rem;">
                 <div class="card-header text-center">Total Admins</div>
